@@ -1,0 +1,65 @@
+is_global = true
+build_property.TargetFramework = net7.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = BuyList
+build_property.RootNamespace = BuyList
+build_property.ProjectDir = /run/media/mmcblk0p1/Code/Asp.Net_test/test/BuyList/
+build_property.RazorLangVersion = 7.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = /run/media/mmcblk0p1/Code/Asp.Net_test/test/BuyList
+build_property._RazorSourceGeneratorDebug = 
+
+[/run/media/mmcblk0p1/Code/Asp.Net_test/test/BuyList/App.razor]
+build_metadata.AdditionalFiles.TargetPath = QXBwLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[/run/media/mmcblk0p1/Code/Asp.Net_test/test/BuyList/Pages/DataAdd.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvRGF0YUFkZC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/run/media/mmcblk0p1/Code/Asp.Net_test/test/BuyList/Pages/Index.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvSW5kZXgucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/run/media/mmcblk0p1/Code/Asp.Net_test/test/BuyList/Pages/List.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvTGlzdC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/run/media/mmcblk0p1/Code/Asp.Net_test/test/BuyList/Pages/Settings.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvU2V0dGluZ3MucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/run/media/mmcblk0p1/Code/Asp.Net_test/test/BuyList/Pages/Statistics.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvU3RhdGlzdGljcy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/run/media/mmcblk0p1/Code/Asp.Net_test/test/BuyList/Shared/MainLayout.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkL01haW5MYXlvdXQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/run/media/mmcblk0p1/Code/Asp.Net_test/test/BuyList/Shared/NavMenu.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkL05hdk1lbnUucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/run/media/mmcblk0p1/Code/Asp.Net_test/test/BuyList/Shared/SurveyPrompt.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkL1N1cnZleVByb21wdC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/run/media/mmcblk0p1/Code/Asp.Net_test/test/BuyList/_Imports.razor]
+build_metadata.AdditionalFiles.TargetPath = X0ltcG9ydHMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/run/media/mmcblk0p1/Code/Asp.Net_test/test/BuyList/Pages/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvRXJyb3IuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/run/media/mmcblk0p1/Code/Asp.Net_test/test/BuyList/Pages/_Host.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvX0hvc3QuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 

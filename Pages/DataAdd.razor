@@ -1,0 +1,133 @@
+﻿@page "/DataAdd"
+@using System.Globalization;
+
+
+
+
+<div style="width: 70%; margin: auto;">
+    <h3 style="text-align: center; margin-top:30px;">商品追加</h3>
+    <EditForm Model="@productitem" OnValidSubmit="@sendproductinfo">
+
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+
+        <div>
+            <h5 class="h5" >商品の詳細</h5>
+            <p class="p1" >ジャンル</p>
+            <InputText Id="name" Placeholder="ジャンル" Class="form-control" @bind-Value="@productitem.Genre"></InputText>
+             <ValidationMessage For="@(() => productitem.Genre)" />
+        </div>
+
+        <div class = priceinput style="margin-bottom: 60px">
+            <p class="p1">商品URL</p>
+            <InputText  type="url" Placeholder="URL" Id="name" Class="form-control" @bind-Value="@productitem.Url"></InputText>
+            <ValidationMessage For="@(() => productitem.Url)" />
+        </div>
+
+        <div>
+            <h5 class="h5">商品名と説明</h5>
+            <p class="p1">商品名</p>
+            <InputText Id="name" Placeholder="商品名" Class="form-control" @bind-Value="@productitem.Name"></InputText>
+            <ValidationMessage For="@(() => productitem.Name)" />
+        </div>
+        
+        <div class= description>
+            <p class="p1" >商品説明</p>
+            <InputTextArea @bind-Value="@productitem.Description" Placeholder="商品説明" Class="form-control" OnChange="onChange" Rows="8"  />
+            <ValidationMessage For="@(() => productitem.Description)" />
+        <br />
+        </div>
+        <div class="h5"></div>
+        <div class = priceinput>
+            <p class="p1">価格</p>
+            <InputText type="number" Placeholder="価格" Id="name" Class="form-control" @bind-Value="@productitem.Price"></InputText>
+            <ValidationMessage For="@(() => productitem.Price)" />
+        </div>
+
+        <div class = priceinput>
+            <p class="p1">発売日</p>
+            <InputDate Id="name" Class="form-control" @bind-Value="@productitem.Date"></InputDate>
+            <ValidationMessage For="@(() => productitem.Date)" />
+        </div>
+
+        <button id=bt size=large>登録</button>
+        <button onclick="@reset" size=large class=Button Type="@ButtonType.Primary" style="margin-top: 60px">フォームをリセット</button>
+    </EditForm>
+</div>
+
+
+
+
+@code {
+
+    private string Price {get; set;}
+    private productitem productitem {get; set; } = new productitem(); //フォームデータ取得
+    private void sendproductinfo(){ //フォームデータをデータベースに追加する。
+        Guid g = Guid.NewGuid();
+        productitem.id = g.ToString();
+        var sql = new Sqlop();
+        sql.DataAdd(productitem);
+        sql.DBDataGet();
+
+        
+    }
+
+    private void reset(){   //フォームリセット
+        productitem.Name = "";
+        productitem.Genre = "";
+        Price = "";
+        productitem.Description = "";
+        productitem.Url = "";
+    }
+
+
+     private void onChange(string value)
+    {
+        Console.WriteLine("onChange =>" + value);
+    }
+    
+
+
+}
+
+
+
+<style>
+
+    .ant-upload-select-picture-card i {
+        color: #999;
+        font-size: 32px;
+    }
+
+    .ant-upload-select-picture-card .ant-upload-text {
+        margin-top: 8px;
+        color: #666;
+    }
+
+    .mono{
+        width:50px;
+    }
+
+    .input{
+        width: 120px;
+        height: 120px;
+        border: 2px #999999 solid;
+        border-radius: 20px;
+    }
+
+    .h5{
+        height: 20px; 
+        margin-top:20px; 
+        color:gray;  
+        border-top:solid 
+        rgba(223, 220, 220, 0.804) 
+        2px; padding-top:15px;
+    }
+
+    .p1{
+        margin-top: 60px;
+    }
+
+
+
+</style>

@@ -1,0 +1,43 @@
+﻿<Menu   Mode=MenuMode.Inline Theme=MenuTheme.Dark class="menu">
+  <MenuItem key = "1" RouterLink="/" >
+    <Icon class="icon" Type="home" Theme="outline"/>
+    <span class="string" >ホーム</span>
+  </MenuItem>
+  <MenuItem RouterLink="/List">
+  <Icon class="icon" Type="database"  Theme="outline"/>
+    <span class="string">購入リスト</span>
+  </MenuItem>
+  <MenuItem RouterLink="/DataAdd">
+    <Icon class="icon" Type="file-add" Theme="outline"/>
+    <span class="string"> 登録</span>
+  </MenuItem>
+  <MenuItem RouterLink="/Statistics">
+    <Icon class="icon" Type="pie-chart" Theme="outline"/>
+    <span class="string"> 統計</span>
+  </MenuItem>
+  <MenuItem RouterLink="/Settings">
+  <Icon class="icon" Type="setting" Theme="outline"/>
+    <span class="string">設定</span>
+    </MenuItem>
+  <MenuItem >
+  <Icon class="icon" Type="question" Theme="outline"/>
+    <span class="string">about</span>
+    </MenuItem>
+</Menu>
+
+<style>
+    
+    .icon{
+        margin-left: 0px;
+        vertical-align: center;
+        padding-bottom: 5px;
+        font-size: 30px;
+        color: rgb(197, 190, 190);
+    }
+
+
+</style> 
+
+@code {
+
+}

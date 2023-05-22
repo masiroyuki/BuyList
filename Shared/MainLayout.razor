@@ -1,0 +1,49 @@
+﻿@inherits LayoutComponentBase
+
+<PageTitle>BuyList</PageTitle>
+
+<Layout>
+    <Sider Style="overflow: auto; height: 100vh;position: fixed;left: 0;  border-right:solid rgb(211, 206, 206)1px">
+        <div class="logo"></div>
+        <NavMenu />
+    </Sider>
+    <Layout style="margin-left: 200px">
+        <Header class="head"></Header>
+        <Content class="con" >
+            <div style="margin: auto auto; padding: 24px; max-width: 1200px;">
+                @Body
+                <br />
+            </div>
+        </Content>
+     <Footer Style="text-align:center; background-color: rgba(175, 180, 182, 0.671) ;">BuyList ©2023 Created by Masiro Yuki </Footer>
+  </Layout>
+</Layout>
+
+
+<style>
+    .root{
+      height:100%;  
+    }
+    .con{
+        background-color: #ffffff;
+        margin: 25px 26px 25px;
+        border-radius: 10px;
+        box-shadow: 0 0 4px gray;
+        height: 100vh;
+        overflow: auto;
+    }
+
+    .head{
+        background-color: rgb(34, 137, 165);
+        border-bottom:solid
+        rgb(211, 206, 206)1px
+    }
+
+
+    .logo {
+        height: 32px;
+        background: rgba(255, 255, 255, 0.2);
+        margin: 16px;
+    }
+
+</style>

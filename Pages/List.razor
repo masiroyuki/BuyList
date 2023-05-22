@@ -1,0 +1,84 @@
+﻿
+@using System.ComponentModel
+@using AntDesign.TableModels
+
+@page "/List"
+<h3>購入リスト</h3>
+
+
+<div style="background left;" >
+    <Space>
+        <SpaceItem>
+            <Button OnClick="GetColdata">ロード</Button>
+        </SpaceItem>
+        <SpaceItem>
+            <Button Danger OnClick="DelDBRow" >削除</Button>
+        </SpaceItem>
+    </Space>
+</div>
+
+
+<Table DataSource="getlist" @bind-SelectedRows="selectedRows" Bordered>
+    <Selection Key="@context.Name" />
+    <PropertyColumn Sortable Filterable Title="商品名" Property="c=>c.Name" />
+    <PropertyColumn Sortable Filterable Title="価格" Property="c=>c.Price" Style="text-align: right" />
+    <PropertyColumn Sortable Filterable Title="ジャンル" Property="c=>c.Genre" />
+    <PropertyColumn Sortable Filterable Format="yyyy-MM-dd" Title="発売日" Property="c=>c.Date" />
+    <PropertyColumn Title="説明" Property="c=>c.Description" />
+    <PropertyColumn Title="URL" Property="c=>c.Url"><a>@context.Url</a></PropertyColumn>
+</Table>
+
+@code {
+
+    productitem[] getlist; 
+
+    IEnumerable<productitem> selectedRows;
+    
+
+
+    void GetColdata(){  //DBからデータを取得する
+        var getcol = new Sqlop();
+
+        var data = getcol.DBDataGet();
+
+        getlist = data;
+    }
+
+
+    void DelDBRow(){
+        
+        if (selectedRows != null){
+
+            List<string> list = new List<string>();
+            foreach(var i in selectedRows){
+                
+                list.Add(i.id);
+
+            }
+
+            var list2 = list.ToArray();
+
+            var sql = new Sqlop();
+
+            sql.DelDB(list2);
+
+            getlist = sql.DBDataGet();
+
+        }
+
+    }
+
+    protected override async Task OnInitializedAsync()  //読み込み時に行う動作
+    {
+     
+        GetColdata();
+
+    }
+
+}
+
+<style>
+
+
+</style>
+
