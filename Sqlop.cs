@@ -3,8 +3,9 @@ using System.Globalization;
 class Sqlop{
     
 
-    public void DataAdd(productitem item){      //データ追加
-
+    public bool DataAdd(productitem item){      //データ追加
+        bool a = true;
+        try{
             using (var connection = new SqliteConnection("Data Source=product.db"))
             {
                 connection.Open(); //データーベース接続
@@ -41,6 +42,14 @@ class Sqlop{
                         Console.WriteLine(reader["name"]);
                     }
              };
+            return a;
+        }
+        catch{
+            a =false;
+            return a;
+        }
+            
+
         }
 
         public productitem[] DBDataGet(){        //データ読み出し

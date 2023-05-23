@@ -3,10 +3,10 @@
 @using AntDesign.TableModels
 
 @page "/List"
-<h3>購入リスト</h3>
+ <Title Level="2">購入リスト</Title>
 
 
-<div style="background left;" >
+<div style="background left; margin-bottom:20px;" >
     <Space>
         <SpaceItem>
             <Button OnClick="GetColdata">ロード</Button>
@@ -18,14 +18,18 @@
 </div>
 
 
-<Table DataSource="getlist" @bind-SelectedRows="selectedRows" Bordered>
-    <Selection Key="@context.Name" />
-    <PropertyColumn Sortable Filterable Title="商品名" Property="c=>c.Name" />
-    <PropertyColumn Sortable Filterable Title="価格" Property="c=>c.Price" Style="text-align: right" />
-    <PropertyColumn Sortable Filterable Title="ジャンル" Property="c=>c.Genre" />
-    <PropertyColumn Sortable Filterable Format="yyyy-MM-dd" Title="発売日" Property="c=>c.Date" />
-    <PropertyColumn Title="説明" Property="c=>c.Description" />
-    <PropertyColumn Title="URL" Property="c=>c.Url"><a>@context.Url</a></PropertyColumn>
+<Table DataSource="getlist" @bind-SelectedRows="selectedRows" Size="TableSize.Small" Bordered=@true ScrollX="1000">
+    <ColumnDefinitions >
+        <Selection Key="@context.Name" />
+        <PropertyColumn Sortable Filterable Title="商品名" Property="c=>c.Name" />
+        <PropertyColumn Sortable Filterable Title="価格" Property="c=>c.Price" Style="text-align: right" />
+        <PropertyColumn Sortable Filterable Title="ジャンル" Property="c=>c.Genre" />
+        <PropertyColumn Sortable Filterable Format="yyyy-MM-dd" Title="発売日" Property="c=>c.Date" />
+        <PropertyColumn Title="URL" Property="c=>c.Url"><a href=@context.Url target="_blank">@context.Url</a></PropertyColumn>
+    </ColumnDefinitions>
+    <ExpandTemplate >
+		@context.Data.Description
+	</ExpandTemplate>
 </Table>
 
 @code {
@@ -72,6 +76,7 @@
     {
      
         GetColdata();
+        LocaleProvider.SetLocale("ja-JP");
 
     }
 

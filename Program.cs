@@ -7,6 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddAntDesign();
+builder.Services.AddLocalization();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -14,6 +15,8 @@ if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error");
 }
+
+app.UseRequestLocalization("ja-JP");
 
 
 app.UseStaticFiles();

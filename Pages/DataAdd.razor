@@ -5,7 +5,7 @@
 
 
 <div style="width: 70%; margin: auto;">
-    <h3 style="text-align: center; margin-top:30px;">商品追加</h3>
+    <Title Level="2"style="text-align: center; margin-top:30px;">商品追加</Title>
     <EditForm Model="@productitem" OnValidSubmit="@sendproductinfo">
 
         <DataAnnotationsValidator />
@@ -53,6 +53,16 @@
         <button id=bt size=large>登録</button>
         <button onclick="@reset" size=large class=Button Type="@ButtonType.Primary" style="margin-top: 60px">フォームをリセット</button>
     </EditForm>
+
+    <div style="margin: 30px;">
+        @if(alert){
+            <Alert Type="@alerttype"
+            Message="@alertMessage"
+            Closable
+            Banner />
+        }
+    </div>
+
 </div>
 
 
@@ -62,12 +72,27 @@
 
     private string Price {get; set;}
     private productitem productitem {get; set; } = new productitem(); //フォームデータ取得
+    private bool alert = false;
+    private string alertMessage = "";
+    private string alerttype = "";
     private void sendproductinfo(){ //フォームデータをデータベースに追加する。
         Guid g = Guid.NewGuid();
         productitem.id = g.ToString();
         var sql = new Sqlop();
-        sql.DataAdd(productitem);
-        sql.DBDataGet();
+        var a = sql.DataAdd(productitem);
+
+        if(a){
+            alerttype = "AlertType.Success";
+            alertMessage = "登録完了";
+            alert = true;
+            reset();
+        }
+        else{
+            alerttype = "AlertType.Warning";
+            alertMessage = "登録エラー";
+            alert = true;
+        }
+
 
         
     }
@@ -75,9 +100,10 @@
     private void reset(){   //フォームリセット
         productitem.Name = "";
         productitem.Genre = "";
-        Price = "";
+        productitem.Price = "";
         productitem.Description = "";
         productitem.Url = "";
+        productitem.Date = DateTime.Now;
     }
 
 

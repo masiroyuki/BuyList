@@ -2,8 +2,22 @@
 
 <PageTitle>Index</PageTitle>
 
-<h1>HomePage</h1>
+<Title Level="2">ダッシュボード</Title>
 
-Welcome to your new app.
+<Row Gutter="16">
+    <Col Span="12">
+        <Statistic Title="リスト総数" Value="112893" />
+    </Col>
+    <Col Span="12">
+        <Statistic Title="合計金額" Value="112893" Precision="2"/>
+    </Col>
+</Row>
+<br />
+<div style="border-top:solid 1px gray; margin-bottom:10px;"></div>
+<Title Level="3">発売日カレンダー</Title>
+<Calendar style="margin:26px;"/>
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+
+@code{
+   
+}
