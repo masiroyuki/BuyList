@@ -5,10 +5,10 @@
 <Title Level="3">ダッシュボード</Title>
 <br />
 <Row Gutter="16">
-    <Col Span="8">
+    <Col Span="10">
         <Statistic Title="総数" Value="@arrayAll" />
     </Col>
-    <Col Span="8">
+    <Col Span="10">
         <Statistic Title="全体合計金額" Value="@SumPrice" />
     </Col>
 </Row>
@@ -16,16 +16,26 @@
 <br />
 <div style="border-top:solid 1px gray; margin-bottom:20px;"></div>
 <Title Level="3" >発売日カレンダー</Title>
-<Calendar style="margin:26px;"/>
+<Calendar style="margin:26px;" DateCellRender="DateCellRender" />
 
 
 @code{
    private string SumPrice = "";
-   private int arrayAll = 0;
+   private string arrayAll = "";
 
+   private int datemouth;
+   private int dateyear;
+
+
+   productitem[] list;
     void getprice(){
         var Sql = new Sqlop();
         SumPrice = Sql.DBDataGetPriceSum();
+    }
+
+    void getlistcount(){
+        var Sql = new Sqlop();
+        arrayAll = Sql.DBDataGetlistSum();
     }
 
 
@@ -33,8 +43,69 @@
     {
      
         getprice();
+        getlistcount();
+        getsqldata();
 
     }
+
+     class ListData
+    {
+        public string type;
+        public string content;
+    }
+
+    void getmouth(DateTime Date){
+        //datemouth = Date.Month;
+        //dateyear = Date.Year;
+        //Console.WriteLine(Date);
+    }
+
+    void getsqldata(){
+        var sql = new Sqlop();
+        list = sql.DBDataGet();
+
+        datemouth = DateTime.Now.Month;
+        dateyear = DateTime.Now.Year;
+    }
+    private List<ListData> GetListData(DateTime value) {
+
+        var listData = new List<ListData>();
+
+        foreach(var i in list){
+            var type = "success";
+            
+            if(i.Date.Value < DateTime.Now){
+                type = "error";
+            }
+
+            if(i.Date.Value.Year == value.Year)
+                if(i.Date.Value.Month == value.Month)
+                    if(i.Date.Value.Day == value.Day)
+                        listData.Add(new ListData {type = type, content = i.Name });
+            
+            else{
+                continue;
+            }
+
+        }
+
+        return listData ?? new List<ListData>();
+    }
+
+     private RenderFragment DateCellRender(DateTime value) {
+        var listData = GetListData(value);
+        return @<Template>
+                    <ul class="events">
+                        @foreach (var data in listData)
+                        {
+                            <li key="@data.content">
+                                <Badge Status="@data.type" Text="@data.content" />
+                            </li>
+                        }
+                    </ul>
+                </Template>;
+    }
+
 
 
 

@@ -96,7 +96,7 @@ class Sqlop{
         }
 
 
-        public string DBDataGetPriceSum(){
+        public string DBDataGetPriceSum(){ //金額合計計算
             long sumPrice = 0;
             string sumPriceString = "";
             try{
@@ -125,6 +125,38 @@ class Sqlop{
             }
 
             return sumPriceString;
+
+        }
+
+
+        public string DBDataGetlistSum(){ //総リスト数
+            long list = 0;
+            string ListCount = "";
+            try{
+                using (var connection = new SqliteConnection("Data Source=product.db"))
+                {
+                    connection.Open(); //データーベース接続
+                    
+                    var cmd = connection.CreateCommand();
+
+                    string query = "SELECT COUNT(*) AS ListCount From product ";
+
+                    cmd.CommandText = query;
+
+                    using(var reader = cmd.ExecuteReader()){
+                        if(reader.Read() == true){
+                            list = (long)reader["ListCount"];
+                            ListCount = string.Format(CultureInfo.InvariantCulture, "{0:0,0}", list );
+                        }
+                    }
+                }
+            }
+            catch{
+                ListCount = "NoData";
+                return ListCount;
+            }
+
+            return ListCount;
 
         }
 
