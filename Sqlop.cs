@@ -14,7 +14,7 @@ class Sqlop{
                     var cmd = connection.CreateCommand();
                     cmd.CommandText = "CREATE TABLE IF NOT EXISTS product(id TEXT NOT NULL PRIMARY KEY, "+ //テーブル作成
                         "name TEXT," +
-                        "Price TEXT," +
+                        "Price INTEGER," +
                         "Genre TEXT," +
                         "Description TEXT," +
                         "Url TEXT," +
@@ -23,12 +23,9 @@ class Sqlop{
                     cmd.ExecuteNonQuery();
 
 
-                    var Price = string.Format(CultureInfo.InvariantCulture, "{0:0,0}", int.Parse(item.Price) );
-                    Price = Price+"円";
-
 
                     cmd.CommandText = "INSERT INTO product VALUES "+ //データベースに追加
-                    $"('{item.id}','{item.Name}','{Price}','{item.Genre}','{item.Description}','{item.Url}','{item.Date}')";
+                    $"('{item.id}','{item.Name}','{item.Price}','{item.Genre}','{item.Description}','{item.Url}','{item.Date}')";
 
                     cmd.ExecuteNonQuery();
                     
@@ -53,42 +50,82 @@ class Sqlop{
         }
 
         public productitem[] DBDataGet(){        //データ読み出し
+            try{
+                List<productitem> list = new List<productitem>();
 
-            List<productitem> list = new List<productitem>();
-
-            using (var connection = new SqliteConnection("Data Source=product.db"))
-            {
-                connection.Open(); //データーベース接続
-                
-                var cmd = connection.CreateCommand();
-
-                string query =  "SELECT * FROM product";    
-
-                cmd.CommandText = query;
-
-                using (var reader = cmd.ExecuteReader()){
+                using (var connection = new SqliteConnection("Data Source=product.db"))
+                {
+                    connection.Open(); //データーベース接続
                     
-                    while (reader.Read() == true){      // DBのデータをディクショナリに変換
-                        var item = new productitem();
-                        item.id = (string)reader["id"];
-                        item.Name = (string)reader["name"];
-                        item.Price = (string)reader["Price"];
-                        item.Genre = (string)reader["Genre"];
-                        item.Description = (string)reader["Description"];
-                        item.Url = (string)reader["Url"];
-                        DateTime time;
-                        DateTime.TryParse((string)reader["Date"],out time);
-                        item.Date = time;
-        
-                        list.Add(item);
+                    var cmd = connection.CreateCommand();
 
-                        Console.WriteLine(item.Date);
+                    string query =  "SELECT * FROM product";    
+
+                    cmd.CommandText = query;
+
+                    using (var reader = cmd.ExecuteReader()){
+                        
+                        while (reader.Read() == true){      // DBのデータをディクショナリに変換
+                            var item = new productitem();
+                            item.id = (string)reader["id"];
+                            item.Name = (string)reader["name"];
+                            var Price = (long)reader["Price"];
+                            item.Genre = (string)reader["Genre"];
+                            item.Description = (string)reader["Description"];
+                            item.Url = (string)reader["Url"];
+                            DateTime time;
+                            DateTime.TryParse((string)reader["Date"],out time);
+                            item.Date = time;
+
+                            var Pricest = string.Format(CultureInfo.InvariantCulture, "{0:0,0}", Price );
+                            item.Price = Pricest+"円";
+            
+                            list.Add(item);
+
+                        }
+                    }
+                    productitem[] rt_list = list.ToArray();
+                    return rt_list;
+                    }
+
+                }
+                catch{
+                    productitem[] rt_list = null;
+                    return rt_list;
+                }
+        }
+
+
+        public string DBDataGetPriceSum(){
+            long sumPrice = 0;
+            string sumPriceString = "";
+            try{
+                using (var connection = new SqliteConnection("Data Source=product.db"))
+                {
+                    connection.Open(); //データーベース接続
+                    
+                    var cmd = connection.CreateCommand();
+
+                    string query = "SELECT SUM(Price) AS sumPrice From product ";
+
+                    cmd.CommandText = query;
+
+                    using(var reader = cmd.ExecuteReader()){
+                        if(reader.Read() == true){
+                            sumPrice = (long)reader["sumPrice"];
+                            sumPriceString = string.Format(CultureInfo.InvariantCulture, "{0:0,0}", sumPrice );
+                            sumPriceString =  sumPriceString +"円";
+                        }
                     }
                 }
-                productitem[] rt_list = list.ToArray();
-                return rt_list;
+            }
+            catch{
+                sumPriceString = "NoData";
+                return sumPriceString;
+            }
 
-            }     
+            return sumPriceString;
+
         }
 
 

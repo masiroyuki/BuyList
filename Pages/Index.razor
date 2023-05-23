@@ -2,22 +2,40 @@
 
 <PageTitle>Index</PageTitle>
 
-<Title Level="2">ダッシュボード</Title>
-
+<Title Level="3">ダッシュボード</Title>
+<br />
 <Row Gutter="16">
-    <Col Span="12">
-        <Statistic Title="リスト総数" Value="112893" />
+    <Col Span="8">
+        <Statistic Title="総数" Value="@arrayAll" />
     </Col>
-    <Col Span="12">
-        <Statistic Title="合計金額" Value="112893" Precision="2"/>
+    <Col Span="8">
+        <Statistic Title="全体合計金額" Value="@SumPrice" />
     </Col>
 </Row>
 <br />
-<div style="border-top:solid 1px gray; margin-bottom:10px;"></div>
-<Title Level="3">発売日カレンダー</Title>
+<br />
+<div style="border-top:solid 1px gray; margin-bottom:20px;"></div>
+<Title Level="3" >発売日カレンダー</Title>
 <Calendar style="margin:26px;"/>
 
 
 @code{
-   
+   private string SumPrice = "";
+   private int arrayAll = 0;
+
+    void getprice(){
+        var Sql = new Sqlop();
+        SumPrice = Sql.DBDataGetPriceSum();
+    }
+
+
+    protected override async Task OnInitializedAsync()  //読み込み時に行う動作
+    {
+     
+        getprice();
+
+    }
+
+
+
 }
